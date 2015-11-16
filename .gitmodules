@@ -1,3 +1,6 @@
-[submodule "animations"]
-	path = animations
+[submodule "libs/animations"]
+	path = libs/animations
 	url = https://github.com/blobCopter/love-animation.git
+[submodule "libs/aphrodisiacs"]
+	path = libs/aphrodisiacs
+	url = https://github.com/Gatlink/aphrodisiacs.git

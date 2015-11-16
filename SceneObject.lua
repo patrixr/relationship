@@ -1,4 +1,4 @@
-require('animlove')
+require 'libs/animations/animlove'
 
 SceneObject = {
 	collisionLevel = 0,
