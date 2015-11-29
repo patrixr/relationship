@@ -35,6 +35,7 @@ end
 -- @memberof ScreenManager
 --
 function ScreenManager:push(screen)
+	screen:load()
 	table.insert(self.screens, 1, screen)
 end
 
@@ -58,12 +59,13 @@ end
 --
 function ScreenManager:draw()
 	local i = 1
-	while i < #self.screens do
+	while i <= #self.screens do
 		local screen = self.screens[i]
 		screen:draw()
 		if screen.blocksDraw then 
 			break
 		end
+		i = i + 1
 	end
 end
 
@@ -73,13 +75,14 @@ end
 -- @method update
 -- @memberof ScreenManager
 --
-function ScreenManager:update()
+function ScreenManager:update(dt)
 	local i = 1
-	while i < #self.screens do
+	while i <= #self.screens do
 		local screen = self.screens[i]
-		screen:update()
+		screen:update(dt)
 		if screen.blocksUpdate then 
 			break
 		end
+		i = i + 1
 	end
 end

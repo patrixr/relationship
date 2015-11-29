@@ -1,37 +1,26 @@
---
---
--- TEST LOVE APP
---
---
---
+require 'Config'
+require 'ScreenManager'
+require 'screens/GameScreen'
 
-require('SceneObject')
-
-local anim = nil
+local baseScreen = nil
 
 function love.load(arg)
 	love.graphics.setBackgroundColor({0, 0, 0})
-	anim = SceneObject.new('sprites/animation1.lua');
-	anim:setSpeedMultiplier(1);
+	love.window.setMode(Config.screen.width, Config.screen.height, {resizable=false, vsync=Config.screen.vsync})
+	baseScreen = GameScreen.new()
+	ScreenManager.singleton():push(baseScreen)
 end
 
 function love.keypressed(key)
 	if key == 'escape' then
 		love.event.push('quit')
-	elseif key == "up" then
-		anim:setState("jumpStart")
 	end
 end
 
 function love.draw()
-
-	anim:draw()
-	love.graphics.print(anim:getCurrentState(), 300, 300)
-
+	ScreenManager.singleton():draw()
 end
 
 function love.update(dt)
-
-	anim:update(dt)
-
+	ScreenManager.singleton():update(dt)
 end

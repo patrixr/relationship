@@ -55,24 +55,25 @@ function Scene:checkCollisions_(sObj)
 	return false;
 end
 
-function Scene:update()
+function Scene:update(dt)
 	local i = 1
-	while i < #self.objects do
+	while i <= #self.objects do
 		local sObj = self.objects[i]
 		if (not sObj:isActive() or self:checkOutOfBounds_(sObj)) then
 			table.remove(self.objects, i)
 		else
 			i = i + 1
-			self.checkCollisions_(sObj);
-			sObj:update()
+			self:checkCollisions_(sObj);
+			sObj:update(dt)
 		end
 	end
 end
 
 function Scene:draw()
 	local i = 1
-	while i < #self.objects do
+	while i <= #self.objects do
 		local sObj = self.objects[i]
-		sObj:update()
+		sObj:draw()
+		i = i + 1
 	end
 end

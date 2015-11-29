@@ -33,9 +33,19 @@ function Screen.new(scene, opts)
 	opts = opts or {}
 	setmetatable(instance, Screen)
 	instance.scene = scene or Scene.new(love.graphics.getWidth(), love.graphics.getHeight())
-	instance.blocksDraw = opts.blocksDraw || instance.blocksDraw;
-	instance.blocksUpdate = opts.blocksUpdate || instance.blocksUpdate;
+	instance.blocksDraw = opts.blocksDraw or instance.blocksDraw;
+	instance.blocksUpdate = opts.blocksUpdate or instance.blocksUpdate;
 	return instance
+end
+
+--
+-- load
+--
+-- @method load
+-- @memberof Screen
+--
+function Screen:load()
+	print("Screen:load()")
 end
 
 --
@@ -65,6 +75,6 @@ end
 -- @method update
 -- @memberof Screen
 --
-function Screen:update()
-	self.scene:update()
+function Screen:update(dt)
+	self.scene:update(dt)
 end
