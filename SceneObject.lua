@@ -46,3 +46,5 @@ end
 function SceneObject:isActive()
 	return self.active
 end
+
+return SceneObject

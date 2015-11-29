@@ -13,6 +13,7 @@ Screen = {
 	scene = nil,
 	blocksDraw = true,
 	blocksUpdate = true,
+	blocksInput = true,
 	width = 0,
 	height = 0
 }
@@ -49,6 +50,16 @@ function Screen:load()
 end
 
 --
+-- Callback for user input. To be overridden
+--
+-- @method keypressed
+-- @memberof Screen
+--
+function Screen:keypressed(key)
+   -- empty
+end
+
+--
 -- Returns the scene of the screen
 --
 -- @returns scene
@@ -78,3 +89,5 @@ end
 function Screen:update(dt)
 	self.scene:update(dt)
 end
+
+return Screen

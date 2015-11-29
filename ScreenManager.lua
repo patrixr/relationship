@@ -1,14 +1,14 @@
 --[[
-@brief	Manages a stack of screens to structure the game
+   @brief	Manages a stack of screens to structure the game
 
-@module ScreenManager
-@singleton
+   @module ScreenManager
+   @singleton
 ]]
 require('Screen')
 
 ScreenManager = {
-	-- Members
-	screens = {},
+   -- Members
+   screens = {},
 }
 ScreenManager.__index = ScreenManager
 
@@ -21,11 +21,11 @@ local instance = nil
 -- @memberof ScreenManager
 --
 function ScreenManager.singleton()
-	if (instance == nil) then
-		instance =  {}
-		setmetatable(instance, ScreenManager)
-	end
-	return instance
+   if (instance == nil) then
+      instance =  {}
+      setmetatable(instance, ScreenManager)
+   end
+   return instance
 end
 
 --
@@ -35,8 +35,8 @@ end
 -- @memberof ScreenManager
 --
 function ScreenManager:push(screen)
-	screen:load()
-	table.insert(self.screens, 1, screen)
+   screen:load()
+   table.insert(self.screens, 1, screen)
 end
 
 --
@@ -46,10 +46,29 @@ end
 -- @memberof ScreenManager
 --
 function ScreenManager:pop()
-	local screen = self.screens[1]
-	table.remove(self.screens, 1)
-	return screen
+   local screen = self.screens[1]
+   table.remove(self.screens, 1)
+   return screen
 end
+
+-- 
+-- On user input
+--
+-- @method keypressed
+-- @memberof ScreenManager
+--
+function ScreenManager:keypressed(key)
+   local i = 1
+   while i <= #self.screens do
+      local screen = self.screens[i]
+      screen:keypressed(key)
+      if screen.blocksInput then 
+	 break
+      end
+      i = i + 1
+   end   
+end
+
 
 --
 -- Draws the screens
@@ -58,15 +77,15 @@ end
 -- @memberof ScreenManager
 --
 function ScreenManager:draw()
-	local i = 1
-	while i <= #self.screens do
-		local screen = self.screens[i]
-		screen:draw()
-		if screen.blocksDraw then 
-			break
-		end
-		i = i + 1
-	end
+   local i = 1
+   while i <= #self.screens do
+      local screen = self.screens[i]
+      screen:draw()
+      if screen.blocksDraw then 
+	 break
+      end
+      i = i + 1
+   end
 end
 
 --
@@ -76,13 +95,15 @@ end
 -- @memberof ScreenManager
 --
 function ScreenManager:update(dt)
-	local i = 1
-	while i <= #self.screens do
-		local screen = self.screens[i]
-		screen:update(dt)
-		if screen.blocksUpdate then 
-			break
-		end
-		i = i + 1
-	end
+   local i = 1
+   while i <= #self.screens do
+      local screen = self.screens[i]
+      screen:update(dt)
+      if screen.blocksUpdate then 
+	 break
+      end
+      i = i + 1
+   end
 end
+
+return ScreenManager

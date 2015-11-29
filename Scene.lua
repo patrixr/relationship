@@ -77,3 +77,5 @@ function Scene:draw()
 		i = i + 1
 	end
 end
+
+return Scene

@@ -1,26 +1,39 @@
-require 'Config'
 require 'ScreenManager'
-require 'screens/GameScreen'
-
-local baseScreen = nil
 
 function love.load(arg)
-	love.graphics.setBackgroundColor({0, 0, 0})
-	love.window.setMode(Config.screen.width, Config.screen.height, {resizable=false, vsync=Config.screen.vsync})
-	baseScreen = GameScreen.new()
-	ScreenManager.singleton():push(baseScreen)
+
+   local config = require('Config')
+
+   print("Setting up our humble game")
+
+   love.graphics.setBackgroundColor(config.screen.background or {0, 0, 0})
+   --
+   -- Setup
+   --
+   love.window.setMode(
+      config.screen.width,
+      config.screen.height,
+      {
+	 resizable = false,
+	 vsync = config.screen.vsync
+   })
+
+   local baseScreen = require(config.startup.screen)
+   ScreenManager.singleton():push(baseScreen.new())
+
 end
 
 function love.keypressed(key)
-	if key == 'escape' then
-		love.event.push('quit')
-	end
+   if key == 'escape' then
+      love.event.push('quit')
+   end
+   ScreenManager.singleton():keypressed(key)
 end
 
 function love.draw()
-	ScreenManager.singleton():draw()
+   ScreenManager.singleton():draw()
 end
 
 function love.update(dt)
-	ScreenManager.singleton():update(dt)
+   ScreenManager.singleton():update(dt)
 end
