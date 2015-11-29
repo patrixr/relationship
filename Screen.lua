@@ -50,6 +50,16 @@ function Screen:load()
 end
 
 --
+-- unload, called before destruction of the screen
+--
+-- @method unload
+-- @memberof Screen
+--
+function Screen:unload()
+	print("Screen:unload()")
+end
+
+--
 -- Callback for user input. To be overridden
 --
 -- @method keypressed

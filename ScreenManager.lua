@@ -47,6 +47,7 @@ end
 --
 function ScreenManager:pop()
    local screen = self.screens[1]
+   screen:unload()
    table.remove(self.screens, 1)
    return screen
 end

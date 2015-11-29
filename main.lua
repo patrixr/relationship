@@ -1,10 +1,9 @@
 require 'ScreenManager'
 
 function love.load(arg)
+   print("Setting up our humble game")
 
    local config = require('Config')
-
-   print("Setting up our humble game")
 
    love.graphics.setBackgroundColor(config.screen.background or {0, 0, 0})
    --
@@ -20,7 +19,6 @@ function love.load(arg)
 
    local baseScreen = require(config.startup.screen)
    ScreenManager.singleton():push(baseScreen.new())
-
 end
 
 function love.keypressed(key)
