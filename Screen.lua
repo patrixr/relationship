@@ -46,7 +46,7 @@ end
 -- @memberof Screen
 --
 function Screen:load()
-	print("Screen:load()")
+	print("[Screen:load]")
 end
 
 --
@@ -56,7 +56,7 @@ end
 -- @memberof Screen
 --
 function Screen:unload()
-	print("Screen:unload()")
+	print("[Screen:unload]")
 end
 
 --

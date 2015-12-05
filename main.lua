@@ -1,23 +1,24 @@
 require 'ScreenManager'
+require 'Config'
+require 'util'
 
 function love.load(arg)
-   print("Setting up our humble game")
 
-   local config = require('Config')
+   print("[love.load] Setting up our humble game")
 
-   love.graphics.setBackgroundColor(config.screen.background or {0, 0, 0})
+   love.graphics.setBackgroundColor(Config.screen.background or {0, 0, 0})
    --
    -- Setup
    --
    love.window.setMode(
-      config.screen.width,
-      config.screen.height,
+      Config.screen.width,
+      Config.screen.height,
       {
 	 resizable = false,
-	 vsync = config.screen.vsync
+	 vsync = Config.screen.vsync
    })
 
-   local baseScreen = require(config.startup.screen)
+   local baseScreen = require(Config.startup.screen)
    ScreenManager.singleton():push(baseScreen.new())
 end
 
@@ -34,6 +35,11 @@ end
 
 function love.draw()
    ScreenManager.singleton():draw()
+
+   if Config.debugMode.active and Config.debugMode.drawHitboxes then
+      love.graphics.setColor({255,255,255})
+      love.graphics.print("FPS : " .. tostring(love.timer.getFPS()), 10, 10)
+   end
 end
 
 function love.update(dt)
