@@ -1,5 +1,7 @@
 require 'libs/animations/animlove'
 
+local config = require('Config')
+
 SceneObject = {
 	collisionLevel = 0,
 	active = true
@@ -33,6 +35,16 @@ function SceneObject:collides(sObj)
 		geo.width,
 		geo.height
 	)
+end
+
+function SceneObject:draw()
+   LoveAnimation.draw(self) -- super
+
+   if (config.debugMode.active and config.debugMode.drawHitboxes) then
+      local geometry = self:getGeometry()
+      love.graphics.rectangle("line", geometry.x, geometry.y, geometry.width, geometry.height)
+   end
+
 end
 
 function SceneObject:getCollisionLevel()

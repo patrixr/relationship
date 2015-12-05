@@ -28,6 +28,10 @@ function love.keypressed(key)
    ScreenManager.singleton():keypressed(key)
 end
 
+function love.keyreleased(key)
+   ScreenManager.singleton():keyreleased(key)
+end
+
 function love.draw()
    ScreenManager.singleton():draw()
 end

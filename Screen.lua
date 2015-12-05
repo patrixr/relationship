@@ -60,12 +60,22 @@ function Screen:unload()
 end
 
 --
--- Callback for user input. To be overridden
+-- Callback for user input (key down). To be overridden
 --
 -- @method keypressed
 -- @memberof Screen
 --
 function Screen:keypressed(key)
+   -- empty
+end
+
+--
+-- Callback for user input (key up). To be overridden
+--
+-- @method keyreleased
+-- @memberof Screen
+--
+function Screen:keyreleased(key)
    -- empty
 end
 

@@ -11,7 +11,12 @@ return {
       touch = true
    },
    startup = {
-      screen = "screens/GameScreen",
+      screen = "screens/ShooterScreen",
       parameters = {}
+   },
+   debugMode = {
+      active = true,
+      displayFPS = true,
+      drawHitboxes = true
    }
 }

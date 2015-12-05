@@ -53,7 +53,7 @@ function ScreenManager:pop()
 end
 
 -- 
--- On user input
+-- On user input (key down)
 --
 -- @method keypressed
 -- @memberof ScreenManager
@@ -63,6 +63,24 @@ function ScreenManager:keypressed(key)
    while i <= #self.screens do
       local screen = self.screens[i]
       screen:keypressed(key)
+      if screen.blocksInput then 
+	 break
+      end
+      i = i + 1
+   end   
+end
+
+-- 
+-- On user input (key up)
+--
+-- @method keypressed
+-- @memberof ScreenManager
+--
+function ScreenManager:keyreleased(key)
+   local i = 1
+   while i <= #self.screens do
+      local screen = self.screens[i]
+      screen:keyreleased(key)
       if screen.blocksInput then 
 	 break
       end
