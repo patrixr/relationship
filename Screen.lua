@@ -1,21 +1,20 @@
 --[[
-@brief 	Represents a screen of the game (e.g a game screen, a level, a menu screen, ...) \
-		They can be stacked one on top of each others through the ScreenManager \
-		Each screen contains a scene, which is the graphical representation of the screen
-
-@class	Screen
+   @brief 	Represents a screen of the game (e.g a game screen, a level, a menu screen, ...) \
+   They can be stacked one on top of each others through the ScreenManager \
+   Each screen contains a scene, which is the graphical representation of the screen
+   @class	Screen
 ]]
 
 require('Scene')
 
 Screen = {
-	-- Members
-	scene = nil,
-	blocksDraw = true,
-	blocksUpdate = true,
-	blocksInput = true,
-	width = 0,
-	height = 0
+   -- Members
+   scene = nil,
+   blocksDraw = true,
+   blocksUpdate = true,
+   blocksInput = true,
+   width = 0,
+   height = 0
 }
 Screen.__index = Screen
 
@@ -30,13 +29,13 @@ Screen.__index = Screen
 -- @memberof Screen
 --
 function Screen.new(scene, opts)
-	local instance =  {}
-	opts = opts or {}
-	setmetatable(instance, Screen)
-	instance.scene = scene or Scene.new(love.graphics.getWidth(), love.graphics.getHeight())
-	instance.blocksDraw = opts.blocksDraw or instance.blocksDraw;
-	instance.blocksUpdate = opts.blocksUpdate or instance.blocksUpdate;
-	return instance
+   local instance =  {}
+   opts = opts or {}
+   setmetatable(instance, Screen)
+   instance.scene = scene or Scene.new(love.graphics.getWidth(), love.graphics.getHeight())
+   instance.blocksDraw = opts.blocksDraw or instance.blocksDraw;
+   instance.blocksUpdate = opts.blocksUpdate or instance.blocksUpdate;
+   return instance
 end
 
 --
@@ -46,7 +45,7 @@ end
 -- @memberof Screen
 --
 function Screen:load()
-	print("[Screen:load]")
+   print("[Screen:load]")
 end
 
 --
@@ -56,7 +55,7 @@ end
 -- @memberof Screen
 --
 function Screen:unload()
-	print("[Screen:unload]")
+   print("[Screen:unload]")
 end
 
 --
@@ -87,7 +86,7 @@ end
 -- @memberof Screen
 --
 function Screen:getScene()
-	return self.scene
+   return self.scene
 end
 
 --
@@ -97,7 +96,7 @@ end
 -- @memberof Screen
 --
 function Screen:draw()
-	self.scene:draw()
+   self.scene:draw()
 end
 
 --
@@ -107,7 +106,7 @@ end
 -- @memberof Screen
 --
 function Screen:update(dt)
-	self.scene:update(dt)
+   self.scene:update(dt)
 end
 
 return Screen

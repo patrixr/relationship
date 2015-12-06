@@ -1,7 +1,9 @@
---
--- @brief A mediator to allow inter module communication
--- @todo improve (async? delayed? replace data param with multiple params?)
---
+--[[
+   @brief A mediator to allow inter module communication
+
+   @todo improve (async? delayed? replace data param with multiple params?)
+]]
+
 local function Channel(name)
    return {
       lastId = 0,

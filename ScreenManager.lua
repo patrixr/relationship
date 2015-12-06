@@ -1,5 +1,9 @@
 --[[
-   @brief	Manages a stack of screens to structure the game
+   @brief Manages a stack of screens to structure the game
+
+   The Screne manager updates, draws and propagates input to the screens
+   from the top of the stack to the botton. Screens can prevent the lower screens
+   from being processed by setting the blocksDraw, blocksUpdate and blocksInput flags.
 
    @module ScreenManager
    @singleton

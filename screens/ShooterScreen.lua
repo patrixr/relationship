@@ -1,3 +1,10 @@
+--[[
+
+   @brief A demo screen
+
+]]
+
+
 require 'Screen'
 require 'Scene'
 require 'SceneObject'
