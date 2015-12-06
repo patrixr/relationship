@@ -1,3 +1,7 @@
+# Project Specific
+
+build/
+
 # Compiled Lua sources
 luac.out
 
@@ -5,6 +9,7 @@ luac.out
 *.src.rock
 *.zip
 *.tar.gz
+*.love
 
 # Object files
 *.o
