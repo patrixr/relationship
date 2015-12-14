@@ -17,7 +17,7 @@ Config = {
       touch = true
    },
    startup = {
-      screen = "screens/ShooterScreen",
+      screen = "screens/demo/demoScreen",
       parameters = {}
    },
    debugMode = {

@@ -1,21 +1,34 @@
 require 'libs/animations/animlove'
+require 'Vector'
+require 'util'
 
 local config = require('Config')
 
 SceneObject = {
    collisionLevel = 0,
-   active = true
+   active = true,
+   vector = nil,
+   tick = 0,
+   areaBounds = nil,
+   speed = 300 -- px/s
 }
 
 -- set up inheritance
 setmetatable(SceneObject,{__index = LoveAnimation})
 
 -- constructor
+
 SceneObject.__index = SceneObject
-function SceneObject.new(animationFile, collisionLevel)
+function SceneObject.new(animationFile, opts)
    local instance = LoveAnimation.new(animationFile)
+
+   opts = opts or {}
    setmetatable(instance,SceneObject)
-   instance.collisionLevel = collisionLevel
+
+   instance.collisionLevel = opts.collisionLevel or Scene.COLLISIONLEVELS.FRIENDLY
+   instance.vector = opts.vector or Vector.new(0,0)
+   instance.speed = opts.speed or 300
+   instance.tick = 0
    return instance
 end
 
@@ -37,6 +50,30 @@ function SceneObject:collides(sObj)
    )
 end
 
+function SceneObject:setMovementBounds(minX, maxX, minY, maxY)
+   self.areaBounds = {
+      minX = minX,
+      maxX = maxX,
+      minY = minY,
+      maxY = maxY
+   }
+end
+
+function SceneObject:getVector() 
+   return self.vector
+end
+
+function SceneObject:setVector(xOrVector, y)
+   if type(xOrVector) == "number" and type(y) == "number" then
+      self.vector.x = Util.clamp(xOrVector, -1, 1)
+      self.vector.y = Util.clamp(y, -1, 1)
+   elseif type(xOrVector == "table") then
+      self.vector = xOrVector
+      self.vector.x = Util.clamp(self.vector.x, -1, 1)
+      self.vector.y = Util.clamp(self.vector.y, -1, 1)
+   end
+end
+
 function SceneObject:draw()
    LoveAnimation.draw(self) -- super
 
@@ -44,6 +81,34 @@ function SceneObject:draw()
       local geometry = self:getGeometry()
       love.graphics.rectangle("line", geometry.x, geometry.y, geometry.width, geometry.height)
    end
+end
+
+function SceneObject:update(dt)
+   LoveAnimation.update(self, dt)
+
+   local mv = (dt * self.speed)
+
+   local geometry = self:getGeometry()
+   local x = geometry.x
+   local y = geometry.y
+
+   if self.vector.y ~= 0 then      
+      if self.areaBounds then
+	 y = Util.clamp(geometry.y + self.vector.y * mv, self.areaBounds.minY, self.areaBounds.maxY)
+      else
+	 y = geometry.y + self.vector.y * mv
+      end
+   end
+
+   if self.vector.x ~= 0 then
+      if self.areaBounds then
+	 x = Util.clamp(geometry.x + self.vector.x * mv, self.areaBounds.minX, self.areaBounds.maxX)
+      else
+	 x = geometry.x + self.vector.x * mv
+      end
+   end
+
+   self:setPosition(x, y)
 end
 
 function SceneObject:getCollisionLevel()
