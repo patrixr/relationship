@@ -5,29 +5,17 @@
 ]]
 
 
-require 'Screen'
-require 'Scene'
-require 'SceneObject'
-require 'Vector'
-require 'util'
+require('Screen')
+require('Scene')
+require('SceneObject')
+require('Vector')
+require('util')
 
-ShooterScreen = {
+ShooterScreen = Class.extend(Screen, {
    character = nil,
    verticalSpeed = 300, -- px/s
    direction = nil,
-}
-
--- set up inheritance
-setmetatable(ShooterScreen,{__index = Screen})
-
--- constructor
-ShooterScreen.__index = ShooterScreen
-
-function ShooterScreen.new()
-   local instance = Screen.new()
-   setmetatable(instance,ShooterScreen)
-   return instance
-end
+})
 
 function ShooterScreen:load()
    Screen.load(self) -- super

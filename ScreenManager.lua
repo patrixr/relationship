@@ -9,15 +9,18 @@
    @singleton
 ]]
 require('Screen')
-
-ScreenManager = {
-   -- Members
-   screens = {},
-}
-ScreenManager.__index = ScreenManager
+require('Class')
 
 local instance = nil
 
+ScreenManager = Class.define({
+   init = function(self)
+      self.screens = {}
+   end,
+   
+   -- Members
+   screens = nil,
+})
 --
 -- Returns the screen manager
 --
@@ -26,8 +29,7 @@ local instance = nil
 --
 function ScreenManager.singleton()
    if (instance == nil) then
-      instance =  {}
-      setmetatable(instance, ScreenManager)
+      instance = ScreenManager.new()
    end
    return instance
 end

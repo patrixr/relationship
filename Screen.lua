@@ -6,8 +6,28 @@
 ]]
 
 require('Scene')
+require('Class')
 
-Screen = {
+Screen = Class.define({
+    
+    init = function (self, scene, opts)
+        --
+        -- Creates a new screen
+        --
+        -- @method new
+        -- @param {Scene} opts The scene to use. Can be nil
+        -- @param {table} [opts] Object to be set by using the different attributes. Can be nil
+        -- @param {boolean} [options.blocksDraw] True if screen prevents lower screens to draw
+        -- @param {boolean} [options.blocksUpdate] True if screen prevents lower screens to update
+        -- @memberof Screen
+        --
+        opts = opts or {}
+        self.scene = scene or Scene.new(love.graphics.getWidth(), love.graphics.getHeight())
+        self.blocksDraw = opts.blocksDraw or self.blocksDraw;
+        self.blocksUpdate = opts.blocksUpdate or self.blocksUpdate;
+        self.blocksInput = opts.blocksInput or self.blocksInput;
+    end,
+    
    -- Members
    scene = nil,
    blocksDraw = true,
@@ -15,28 +35,8 @@ Screen = {
    blocksInput = true,
    width = 0,
    height = 0
-}
-Screen.__index = Screen
 
---
--- Creates a new screen
---
--- @method new
--- @param {Scene} opts The scene to use. Can be nil
--- @param {table} [opts] Object to be set by using the different attributes. Can be nil
--- @param {boolean} [options.blocksDraw] True if screen prevents lower screens to draw
--- @param {boolean} [options.blocksUpdate] True if screen prevents lower screens to update
--- @memberof Screen
---
-function Screen.new(scene, opts)
-   local instance =  {}
-   opts = opts or {}
-   setmetatable(instance, Screen)
-   instance.scene = scene or Scene.new(love.graphics.getWidth(), love.graphics.getHeight())
-   instance.blocksDraw = opts.blocksDraw or instance.blocksDraw;
-   instance.blocksUpdate = opts.blocksUpdate or instance.blocksUpdate;
-   return instance
-end
+})
 
 --
 -- load

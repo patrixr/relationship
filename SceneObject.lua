@@ -1,36 +1,30 @@
-require 'libs/animations/animlove'
-require 'Vector'
-require 'util'
+require('libs/animations/animlove')
+require('Vector')
+require('util')
+require('Class')
 
 local config = require('Config')
 
-SceneObject = {
+SceneObject = Class.extend(LoveAnimation, {
+      
+   init = function (self, animationFile, opts)
+      -- constructor
+      LoveAnimation.init(self, animationFile)
+      opts = opts or {}
+      self.collisionLevel = opts.collisionLevel or Scene.COLLISIONLEVELS.FRIENDLY
+      self.vector = opts.vector or Vector.new(0,0)
+      self.speed = opts.speed or 300
+      self.tick = 0
+   end,
+      
    collisionLevel = 0,
    active = true,
    vector = nil,
    tick = 0,
    areaBounds = nil,
    speed = 300 -- px/s
-}
-
--- set up inheritance
-setmetatable(SceneObject,{__index = LoveAnimation})
-
--- constructor
-
-SceneObject.__index = SceneObject
-function SceneObject.new(animationFile, opts)
-   local instance = LoveAnimation.new(animationFile)
-
-   opts = opts or {}
-   setmetatable(instance,SceneObject)
-
-   instance.collisionLevel = opts.collisionLevel or Scene.COLLISIONLEVELS.FRIENDLY
-   instance.vector = opts.vector or Vector.new(0,0)
-   instance.speed = opts.speed or 300
-   instance.tick = 0
-   return instance
-end
+   
+})
 
 --
 -- Detect collision with another scene object

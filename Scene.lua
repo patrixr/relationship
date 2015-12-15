@@ -5,28 +5,25 @@
 ]]
 
 require('SceneObject')
+require('Class')
 
-Scene = {
+Scene = Class.define({
+   init = function(self, width, height)
+      self.width = width
+      self.height = height   
+   end,
+      
    -- Members
    objects = {},
    width = 0,
    height = 0
-}
-Scene.__index = Scene
+})
 
 Scene.COLLISION_LEVELS = {
    FRIENDLY = 1,
    ENEMY = 2,
    NON_COLLIDABLE = 3
 }
-
-function Scene.new(width, height)
-   local instance =  {}
-   setmetatable(instance,Scene)
-   instance.width = width
-   instance.height = height
-   return instance
-end
 
 function Scene:addObject(sObj)
    table.insert(self.objects, sObj)
