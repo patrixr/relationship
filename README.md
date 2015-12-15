@@ -12,6 +12,7 @@ It contains :
    - A Configuration file
    - Some Debug helpers
    - A build script
+   - A Class module (base classes + inheritance)
 
 Useful links :
 
