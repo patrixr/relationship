@@ -1,5 +1,5 @@
 return {
-	imageSrc = "resources/sprites/sprite_sheet_ship.png",
+	imageSrc = "resources/sprites/demoScreen/sprite_sheet_ship.png",
 	defaultState = "flying",
 	states = {
 		-- 1st line
@@ -27,7 +27,7 @@ return {
 		attack = {
 			frameCount = 3,
 			offsetX = 0,
-			offsetY = 250, 
+			offsetY = 250,
 			frameW = 100,
 			frameH = 100,
 			nextState = "running",

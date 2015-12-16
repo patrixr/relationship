@@ -20,12 +20,12 @@ ShooterScreen = Class.extend(Screen, {
 function ShooterScreen:load()
    Screen.load(self) -- super
    self.character = SceneObject.new(
-      'resources/sprites/ship.animation.lua', {
+      'resources/sprites/demoScreen/ship.animation.lua', {
 	 collisionLevel = Scene.COLLISION_LEVELS.FRIENDLY
    });
    
    self.direction = Vector.new(0,0)
-   self.bg = love.graphics.newImage("resources/bg.jpg")
+   self.bg = love.graphics.newImage("resources/images/demoScreen/bg.jpg")
    self.character:setPosition(20, love.graphics.getHeight() / 2 -  self.character:getFrameHeight() / 2)
    self.character:setMovementBounds(0, love.graphics.getWidth(), 0, love.graphics.getHeight())
    self:getScene():addObject(self.character)
