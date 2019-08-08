@@ -17,10 +17,11 @@ ScreenManager = Class.define({
    init = function(self)
       self.screens = {}
    end,
-   
+
    -- Members
    screens = nil,
 })
+
 --
 -- Returns the screen manager
 --
@@ -58,40 +59,24 @@ function ScreenManager:pop()
    return screen
 end
 
--- 
+--
 -- On user input (key down)
 --
 -- @method keypressed
 -- @memberof ScreenManager
 --
 function ScreenManager:keypressed(key)
-   local i = 1
-   while i <= #self.screens do
-      local screen = self.screens[i]
-      screen:keypressed(key)
-      if screen.blocksInput then 
-	 break
-      end
-      i = i + 1
-   end   
+   self:_each('keypressed', 'blocksInput', key)
 end
 
--- 
+--
 -- On user input (key up)
 --
 -- @method keypressed
 -- @memberof ScreenManager
 --
 function ScreenManager:keyreleased(key)
-   local i = 1
-   while i <= #self.screens do
-      local screen = self.screens[i]
-      screen:keyreleased(key)
-      if screen.blocksInput then 
-	 break
-      end
-      i = i + 1
-   end   
+   self:_each('keyreleased', 'blocksInput', key)
 end
 
 
@@ -102,15 +87,7 @@ end
 -- @memberof ScreenManager
 --
 function ScreenManager:draw()
-   local i = 1
-   while i <= #self.screens do
-      local screen = self.screens[i]
-      screen:draw()
-      if screen.blocksDraw then 
-	 break
-      end
-      i = i + 1
-   end
+   self:_each('draw', 'blocksDraw', dt)
 end
 
 --
@@ -120,15 +97,25 @@ end
 -- @memberof ScreenManager
 --
 function ScreenManager:update(dt)
+   self:_each('update', 'blocksUpdate', dt)
+end
+
+
+function ScreenManager:_each(funcName, blockProperty, arg)
    local i = 1
    while i <= #self.screens do
       local screen = self.screens[i]
-      screen:update(dt)
-      if screen.blocksUpdate then 
-	 break
+      if screen[blockProperty] then
+	      break
       end
       i = i + 1
    end
+   while i >= 1 do
+      local screen = self.screens[i]
+      screen[funcName](screen, arg)
+      i = i - 1
+   end
+
 end
 
 return ScreenManager

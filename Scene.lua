@@ -1,5 +1,5 @@
 --[[
-   @brief Container for graphical entities.   
+   @brief Container for graphical entities.
 
    @class SceneObject
 ]]
@@ -10,9 +10,9 @@ require('Class')
 Scene = Class.define({
    init = function(self, width, height)
       self.width = width
-      self.height = height   
+      self.height = height
    end,
-      
+
    -- Members
    objects = {},
    width = 0,
@@ -57,7 +57,7 @@ end
 function Scene:checkOutOfBounds_(sObj)
    -- Checks if an object went ouside of the scene
    local geo = sObj:getGeometry()
-   return geo.x + geo.width < 0 
+   return geo.x + geo.width < 0
       or geo.x > self.width
       or geo.y + geo.height < 0
       or geo.y > self.height
@@ -70,14 +70,14 @@ function Scene:checkCollisions_(sObj)
 	 sObj:getCollisionLevel() ~= sObj2:getCollisionLevel() and
 	 sObj:isActive() and sObj2:isActive()
       )
-      then 
+      then
 	 if (sObj:collides(sObj2)) then
 	    sObj:onCollision(sObj2)
 	    sObj2:onCollision(sObj)
 	 end
       end
    end
-   
+
    return false;
 end
 

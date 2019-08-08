@@ -6,7 +6,7 @@ require('Class')
 local config = require('Config')
 
 SceneObject = Class.extend(LoveAnimation, {
-      
+
    init = function (self, animationFile, opts)
       -- constructor
       LoveAnimation.init(self, animationFile)
@@ -16,14 +16,14 @@ SceneObject = Class.extend(LoveAnimation, {
       self.speed = opts.speed or 300
       self.tick = 0
    end,
-      
+
    collisionLevel = 0,
    active = true,
    vector = nil,
    tick = 0,
    areaBounds = nil,
    speed = 300 -- px/s
-   
+
 })
 
 --
@@ -33,9 +33,9 @@ function SceneObject:collides(sObj)
    if (sObj.collisionLevel == 0 or sObj.collisionLevel == self.collisionLevel) then
       return false;
    end
-   
+
    local geo = sObj:getGeometry()
-   
+
    return self:intersects(
       geo.x,
       geo.y,
@@ -53,7 +53,7 @@ function SceneObject:setMovementBounds(minX, maxX, minY, maxY)
    }
 end
 
-function SceneObject:getVector() 
+function SceneObject:getVector()
    return self.vector
 end
 
@@ -86,7 +86,7 @@ function SceneObject:update(dt)
    local x = geometry.x
    local y = geometry.y
 
-   if self.vector.y ~= 0 then      
+   if self.vector.y ~= 0 then
       if self.areaBounds then
 	 y = Util.clamp(geometry.y + self.vector.y * mv, self.areaBounds.minY, self.areaBounds.maxY)
       else

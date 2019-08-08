@@ -2,7 +2,7 @@
  Class module
 
  Example usage :
- 
+
  -- We create a class
  local Car = Class.define({
  	init = function(self, brand)
@@ -16,7 +16,7 @@
 	print("honk " ..  self.numberOfWheels)
 	print("honk " ..  self.brand)
  end
- 
+
 ]]
 
 
@@ -39,9 +39,9 @@ function Class.define(classDesc)
 	return klass
 end
 
-function Class.extend(superClass, classDesc)	
+function Class.extend(superClass, classDesc)
 	local klass = Class.define(classDesc)
-	
+
 	setmetatable(klass, { __index = superClass })
 	return klass
 end

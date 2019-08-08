@@ -9,7 +9,7 @@ require('Scene')
 require('Class')
 
 Screen = Class.define({
-    
+
     init = function (self, scene, opts)
         --
         -- Creates a new screen
@@ -23,11 +23,17 @@ Screen = Class.define({
         --
         opts = opts or {}
         self.scene = scene or Scene.new(love.graphics.getWidth(), love.graphics.getHeight())
-        self.blocksDraw = opts.blocksDraw or self.blocksDraw;
-        self.blocksUpdate = opts.blocksUpdate or self.blocksUpdate;
-        self.blocksInput = opts.blocksInput or self.blocksInput;
+        if opts.blocksDraw ~= nil then
+            self.blocksDraw = opts.blocksDraw;
+        end
+        if opts.blocksUpdate ~= nil then
+            self.blocksUpdate = opts.blocksUpdate
+        end
+        if opts.blocksInput ~= nil then
+            self.blocksInput = opts.blocksInput
+        end
     end,
-    
+
    -- Members
    scene = nil,
    blocksDraw = true,
